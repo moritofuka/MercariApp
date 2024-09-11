@@ -135,41 +135,44 @@
         <h6>購入するユーザ情報</h6>
     </div>
 
+    <form action="{{ route('create.purchases')}}" method="post">
+    @csrf
+
             <div class="col-12">
               <label for="name" class="form-label">氏名</label>
               <div class="input-group has-validation">
-                <input type="text" class="form-control" id="username" placeholder="氏名" required>
+                <input type="text" class="form-control" name="name" placeholder="氏名" required>
             
               </div>
             </div>
 
             <div class="col-12">
               <label for="tel" class="form-label">電話番号 </label>
-              <input type="email" class="form-control" id="tel" placeholder="電話番号">
+              <input type="text" class="form-control" name="tel" placeholder="電話番号">
               
             </div>
 
             <div class="col-12">
               <label for="postcode" class="form-label">郵便番号</label>
-              <input type="text" class="form-control" id="postcode" placeholder="郵便番号" required>
+              <input type="text" class="form-control" name="postcode" placeholder="郵便番号" required>
             
             </div>
 
 
             <div class="col-12">
               <label for="address" class="form-label">住所</label>
-              <input type="text" class="form-control" id="address" placeholder="住所" required>
+              <input type="text" class="form-control" name="address" placeholder="住所" required>
             
             </div>
 
 
             <div class="col-12">
             
-            　　　　　　　　　　<a href="{{ route('purchases.ok') }}">
+            　　　　　　　　
                                 <button type="submit" class="btn btn-primary">購入</button>
-                            </a>
+                        
             
             </div>
     
-        
+            </from>   
 </html>

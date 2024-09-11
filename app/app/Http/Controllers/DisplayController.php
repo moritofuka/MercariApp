@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\Auth;
 //use App\User;
 //use App\follow;
 //use App\like;
-//use App\purchase;
+use App\Purchase;
 use App\Registration;
 
 class DisplayController extends Controller
@@ -23,43 +23,53 @@ class DisplayController extends Controller
    // $like = new like;
   //  $likes = Auth::user()->like()->get();
 
-  // $purchase = new purchase;
-  // $purchases = Auth::user()->purchase()->get();
+   $purchase = new Purchase;
+   $purchases = Auth::user()->purchase()->get();
+   $allpurchases = $purchase->all()->toArray();
+
+   var_dump($allpurchases);
+
 
    $registration = new Registration;
 $registrations = Auth::user()->registration()->get();
-   $all = $registration->all()->toArray();
+   $allregistrations = $registration->all()->toArray();
 
-   var_dump($all);
+   var_dump($allregistrations);
 
 
         return view('main',[
-            'registrations' => $all,
+            'registrations' => $allregistrations,
+            'purchases' => $purchases,
     
         ]);
 
         
         }
 
-    //商品登録画面へ遷移
-  //  public function registrationsForm() {
-  //      return view('registrations');
-  // }
+    //マイページ
+   public function myFrom() {
+        return view('my');
+   }
 
 
-   //商品登録後メインページへ遷移
- //  public function registrations() {
-  //  return view('main');
-//}
+   //商品購入後、購入履歴へ
+   public function purchaseFrom() {
 
 
-public function purchasesForm() {
-    return view('purchases');
+    $registration = new Registration;
+    $registrations = Auth::user()->registration()->get();
+       $allregistrations = $registration->all()->toArray();
+
+
+   return view('purchase_from',[
+    'registrations' => $allregistrations,
+   ]);
 }
 
-public function purchases() {
-    return view('main');
-}
+
+
+
+
 
     }
 

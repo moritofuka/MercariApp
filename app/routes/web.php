@@ -28,17 +28,23 @@ Route::get('/', [App\Http\Controllers\DisplayController::class,'index'])->name('
 //出品登録
 Route::get('/create_registration', [App\Http\Controllers\RegistrationController::class, 'createregistrationFrom'])->name('create.registration');
 Route::post('/create_registration', [App\Http\Controllers\RegistrationController::class, 'createregistration']);
+//購入機能
+Route::get('/create_purchases', [App\Http\Controllers\RegistrationController::class, 'createpurchasesFrom'])->name('create.purchases');
+Route::post('/create_purchases', [App\Http\Controllers\RegistrationController::class, 'createpurchases']);
 
-//出品登録画面へ
-//Route::get('/registrations_form', [App\Http\Controllers\DisplayController::class, 'registrationsForm'])->name('registrations.form');
+
+//マイページへ
+Route::get('/my_form', [App\Http\Controllers\DisplayController::class, 'myFrom'])->name('my.form');
+
+Route::get('/purchase_form', [App\Http\Controllers\DisplayController::class, 'purchaseFrom'])->name('purchase.form');
 
 //出品登録後メインページへ
 //Route::get('/registrations', [App\Http\Controllers\DisplayController::class, 'registrations'])->name('registrations.ok');
 
 //購入画面へ
-Route::get('/purchases_form', [App\Http\Controllers\DisplayController::class, 'purchasesForm'])->name('purchases.form');
+//Route::get('/purchases_form', [App\Http\Controllers\DisplayController::class, 'purchasesForm'])->name('purchases.form');
 //購入後メインページへ
-Route::get('/purchases', [App\Http\Controllers\DisplayController::class, 'purchases'])->name('purchases.ok');
+//Route::get('/purchases', [App\Http\Controllers\DisplayController::class, 'purchases'])->name('purchases.ok');
 });
 
 

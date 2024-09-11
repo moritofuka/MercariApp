@@ -131,7 +131,7 @@
       @csrf
 
             <div class="col-12">
-              <label for="name">出品名</label>
+            <label for="name">出品名</label>
               <div class="input-group has-validation">
                 <input type="text" class="form-control" name="name" >
             
