@@ -27,14 +27,14 @@ class DisplayController extends Controller
    $purchases = Auth::user()->purchase()->get();
    $allpurchases = $purchase->all()->toArray();
 
-   var_dump($allpurchases);
+  // var_dump($allpurchases);
 
 
    $registration = new Registration;
 $registrations = Auth::user()->registration()->get();
    $allregistrations = $registration->all()->toArray();
 
-   var_dump($allregistrations);
+ // var_dump($allregistrations);
 
 
         return view('main',[
@@ -64,6 +64,12 @@ $registrations = Auth::user()->registration()->get();
    return view('purchase_from',[
     'registrations' => $allregistrations,
    ]);
+}
+
+
+//ユーザアイコン画面へ
+public function useraicon() {
+    return view('aicon');
 }
 
 

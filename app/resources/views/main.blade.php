@@ -33,8 +33,9 @@
                     <form class="d-flex">
                         <button class="btn btn-outline-dark" type="submit">
                          
-                            
+                        <a class="nav-link dropdown-toggle" href="{{ route('user.aicon') }}" >
                             <span class="rounded-pill">ユーザアイコン</span>
+                        </a>
                         </button>
                     </form>
                 </div>

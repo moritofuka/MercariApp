@@ -21,14 +21,15 @@
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
-                        <li class="nav-item"><a class="nav-link active" aria-current="page" href="#!">メインページへ</a></li>
-                        <li class="nav-item"><a class="nav-link" href="#!">ユーザアイコン</a></li>
+                    <li class="nav-item"><a class="nav-link active" aria-current="page" href="{{ route('main.index') }}">メインページへ</a></li>
+                        <li class="nav-item"><a class="nav-link dropdown-toggle" href="{{ route('user.aicon') }}" >ユーザアイコン</a></li>
                     </ul>
                 </div>
             </div>
         </nav>
         <!-- Header - set the background image for the header in the line below-->
         <header class="py-5 bg-image-full" style="background-image: url('https://source.unsplash.com/wfh8dDlNFOk/1600x900')">
+        <h1 class="text-black fs-3 fw-bolder">マイページ</h1>
             <div class="text-center my-5">
                 <img class="img-fluid rounded-circle mb-4" src="https://dummyimage.com/150x150/6c757d/dee2e6.jpg" alt="..." />
                 <h1 class="text-black fs-3 fw-bolder">ユーザ名</h1>

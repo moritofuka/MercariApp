@@ -35,8 +35,15 @@ Route::post('/create_purchases', [App\Http\Controllers\RegistrationController::c
 
 //マイページへ
 Route::get('/my_form', [App\Http\Controllers\DisplayController::class, 'myFrom'])->name('my.form');
-
+//購入履歴
 Route::get('/purchase_form', [App\Http\Controllers\DisplayController::class, 'purchaseFrom'])->name('purchase.form');
+//ユーザアイコン画面へ
+Route::get('/user_aicon', [App\Http\Controllers\DisplayController::class, 'useraicon'])->name('user.aicon');
+
+
+//ユーザ編集画面
+Route::get('/edit_form', [RegistrationController::class, 'editForm'])->name('edit.user');
+Route::post('/edit_form',[RegistrationController::class, 'edit']);
 
 //出品登録後メインページへ
 //Route::get('/registrations', [App\Http\Controllers\DisplayController::class, 'registrations'])->name('registrations.ok');
