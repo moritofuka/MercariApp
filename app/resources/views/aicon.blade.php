@@ -28,17 +28,19 @@
             </div>
         </nav>
         <!-- Header - set the background image for the header in the line below-->
-       
+        @foreach($users as $user)
             <div class="text my-5">
                 <img class="img-fluid rounded-circle mb-4" src="https://dummyimage.com/150x150/6c757d/dee2e6.jpg" alt="..." />
+                <div>{{$user['image']}}</div>
                 <div class="text-censer my-5">
-                <h3 class="text-black fs-3 fw-bolder">ユーザ名:</h3>
-                <h3 class="text-black fs-3 fw-bolder">メールアドレス:</h3>
+                <h3 class="text-black fs-3 fw-bolder">ユーザ名:{{$user['name']}}</h3>
+                <h3 class="text-black fs-3 fw-bolder">メールアドレス:{{$user['email']}}</h3>
             </div>
 
             <div class="text-center my-5">
             <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-                             <a class="btn btn-outline-dark mt-auto" href="{{ route('edit.user') }}">ユーザ情報編集</a>
+            
+                             <a class="btn btn-outline-dark mt-auto" href="{{ route('edit.user',['id' => $user['id']]) }}">ユーザ情報編集</a>
                              </div>
                              <a class="btn btn-outline-dark mt-auto" href="{{ route('create.purchases') }}">ユーザ退会</a>
                              </div>
@@ -46,8 +48,9 @@
 
 
                 <h3 class="text-black
-                -50 mb-0">自己紹介:</h3>
+                -50 mb-0">自己紹介:{{$user['biography']}}</h3>
             </div>
+            @endforeach
    
       
         

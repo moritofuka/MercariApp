@@ -28,16 +28,18 @@
             </div>
         </nav>
         <!-- Header - set the background image for the header in the line below-->
+        @foreach($users as $user)
         <header class="py-5 bg-image-full" style="background-image: url('https://source.unsplash.com/wfh8dDlNFOk/1600x900')">
         <h1 class="text-black fs-3 fw-bolder">マイページ</h1>
             <div class="text-center my-5">
                 <img class="img-fluid rounded-circle mb-4" src="https://dummyimage.com/150x150/6c757d/dee2e6.jpg" alt="..." />
-                <h1 class="text-black fs-3 fw-bolder">ユーザ名</h1>
-                <h3 class="text-black fs-3 fw-bolder">メールアドレス</h3>
+                <h1 class="text-black fs-3 fw-bolder">ユーザ名:{{$user['name']}}</h1>
+                <h3 class="text-black fs-3 fw-bolder">メールアドレス:{{$user['email']}}</h3>
                 <h3 class="text-black
                 -50 mb-0">自己紹介</h3>
             </div>
         </header>
+        @endforeach
         <!-- Content section-->
         <section class="py-5">
             <div class="container my-5">

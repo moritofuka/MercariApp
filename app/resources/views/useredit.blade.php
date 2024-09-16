@@ -127,7 +127,7 @@
       <h2>ユーザ情報編集画面</h2>
     </div>
      
-    <form action="{{ route('create.registration')}}" method="post">
+    <form action="{{ route('edit.user',['id' => $result['id']]) }}" method="post">
       @csrf
 
             <div class="col-12">
@@ -139,20 +139,16 @@
             </div>
 
             <div class="col-12">
-              <label for="password">パスワード </label>
-              <input type="text" class="form-control" name="password" >
+              <label for="email">メールアドレス </label>
+              <input type="text" class="form-control" name="email" >
               
             </div>
 
-            <div class="col-12">
-              <label for="password">パスワード確認用</label>
-              <input type="text" class="form-control" name="password" >
-            
-            </div>
+          
 
             <div class="col-12">
               <label for="image">アイコン画像変更 </label>
-              <input type="text" class="form-control" name="image" >
+              <input type="file" name="image"> 
             </div>
 
             <div class="col-12">
@@ -163,7 +159,7 @@
 
 
             <div class="col-12">　　　　　　　　　
-            <button type="submit" class="btn btn-primary">編集内容確認</button>
+            <button type="submit" class="btn btn-primary">登録</button>
             </div>
     </from>
     </main> 

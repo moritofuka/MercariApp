@@ -58,6 +58,7 @@
                         <div class="card h-100">
                         @foreach($registrations as $registration)
                             <!-- Product image-->
+               
                           <h5>画像{{$registration['image']}}</h5>
                             <!-- Product details-->
                             <div class="card-body p-4">
@@ -71,14 +72,36 @@
                             <div class="goodBtn">
                             <button type="submit" class="btn btn-primary">いいね</button>
                             </div>
+
+                            <meta name="csrf-token" content="{{ csrf_token() }}" />
+                            @foreach($users as $user)
                             <div class="follow">
-                            <button type="submit" class="btn btn-primary">フォローする</button>
+                            <button onclick="follow({{ $user->id }})">フォローする</button>
                             </div>
+                            @endforeach
                             <!-- Product actions-->
                             <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
                                 <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="{{ route('create.purchases') }}">購入</a></div>
                             </div>
                             @endforeach
+
+                            <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+<script>
+  function follow(userId) {
+    $.ajax({
+      // これがないと419エラーが出ます
+      headers: { "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content") },
+      url: `/follow/${userId}`,
+      type: "POST",
+    })
+      .done(data => {
+        console.log(data)
+      })
+      .fail(data => {
+        console.log(data)
+      })
+  }
+</script>
                         </div>
                     </div>
                     <div class="col mb-5">

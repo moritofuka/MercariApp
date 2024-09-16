@@ -127,7 +127,7 @@
       <h2>出品登録画面</h2>
     </div>
      
-    <form action="{{ route('create.registration')}}" method="post">
+    <form action="{{ route('create.registration')}}" method="post" enctype="multipart/form-data">
       @csrf
 
             <div class="col-12">
@@ -149,11 +149,14 @@
               <input type="text" class="form-control" name="memo" >
             
             </div>
-
+  
+        
             <div class="col-12">
-              <label for="image">画像 </label>
-              <input type="text" class="form-control" name="image" >
+            <label for="comments">画像</label>
+              <input type="file" name="image">  
+            
             </div>
+      
 
             <div class="col-12">
               <label for="comments">商品の状態</label>

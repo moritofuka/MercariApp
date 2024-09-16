@@ -7,8 +7,8 @@ use App\Http\Controllers\Post;
 
 use Illuminate\Support\Facades\Auth;
 
-//use App\User;
-//use App\follow;
+use App\User;
+use App\follow;
 //use App\like;
 use App\Purchase;
 use App\Registration;
@@ -16,6 +16,8 @@ use App\Registration;
 class DisplayController extends Controller
 {
     public function index() {
+
+        $users = User::all();
 
    // $follow = new follow;
    // $follows = Auth::user()->follow()->get();
@@ -34,12 +36,15 @@ class DisplayController extends Controller
 $registrations = Auth::user()->registration()->get();
    $allregistrations = $registration->all()->toArray();
 
+   $registration = Registration::all();
+
  // var_dump($allregistrations);
 
 
         return view('main',[
+            'users' => $users,
             'registrations' => $allregistrations,
-            'purchases' => $purchases,
+            'purchases' => $allpurchases,
     
         ]);
 
@@ -48,7 +53,14 @@ $registrations = Auth::user()->registration()->get();
 
     //マイページ
    public function myFrom() {
-        return view('my');
+
+    $user = new User;
+    $alluser = $user->all()->toArray();
+
+
+        return view('my',[
+            'users' => $alluser,
+        ]);
    }
 
 
@@ -69,11 +81,20 @@ $registrations = Auth::user()->registration()->get();
 
 //ユーザアイコン画面へ
 public function useraicon() {
-    return view('aicon');
+    $user = new User;
+    $alluser = $user->all()->toArray();
+
+    return view('aicon',[
+        'users' => $alluser,
+    ]);
 }
 
-
-
+//フォロー
+public function store($userId)
+    {
+        Auth::user()->follows()->attach($userId);
+        return;
+    }
 
 
 

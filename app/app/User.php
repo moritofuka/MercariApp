@@ -37,8 +37,8 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    public function follow(){
-        return $this->hasMany('App\follow');
+    public function follows(){
+        return $this->belongsToMany('App\User','follows','user_id','follow_id');
     }
 
     public function like(){

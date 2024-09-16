@@ -30,10 +30,14 @@ class RegistrationController extends Controller
             $registration->name = $request->name;
             $registration->amount = $request->amount;
             $registration->memo = $request->memo;
-            $registration->image = $request->image;
-            $registration->comments = $request->comments;
 
-            $registration->post_id = $request->post_id;
+            $path = $request->file('image')->store('public/image/');
+            $filename = basename($path);
+            $registration->image = $filename;
+           // $registration->save();
+
+            $registration->comments = $request->comments;
+            $registration->post_id = 1;
 
            // $registration = Registration::where('post_id','0')->where('user_id',Auth::id())->get();
 
@@ -73,6 +77,37 @@ class RegistrationController extends Controller
 
       }
 
+      //ユーザ編集画面
+      public function editForm(int $id) { 
+        $user = new User;
+
+        $result = $user->find($id);
+
+        return view('useredit',[
+            'id' => $id,
+            'result' =>$result,
+        ]);
+      }
+
+
+      public function edit(int $id,Request $request) { 
+
+       $instance = new User;
+       $record = $instance->find($id);
+
+       $record->name = $request->name;
+       $record->email = $request->email;
+       $record->password = $request->password;
+       $record->image = $request->image;
+       $record->biography = $request->biography;
+
+       $record->save();
+
+       return redirect('/');
+
+
+
+      }
 
 
 }
