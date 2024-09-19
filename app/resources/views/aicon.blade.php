@@ -1,4 +1,3 @@
-@extends('layouts.layout')
 
 <!DOCTYPE html>
 <html lang="en">
@@ -42,13 +41,12 @@
             
                              <a class="btn btn-outline-dark mt-auto" href="{{ route('edit.user',['id' => $user['id']]) }}">ユーザ情報編集</a>
                              </div>
-                             <a class="btn btn-outline-dark mt-auto" href="{{ route('create.purchases') }}">ユーザ退会</a>
+                             <a class="btn btn-outline-dark mt-auto" href="{{ route('delete.user',['id' => $user['id']]) }}">ユーザ退会</a>
                              </div>
 
 
 
-                <h3 class="text-black
-                -50 mb-0">自己紹介:{{$user['biography']}}</h3>
+                <h3 class="text-black-50 mb-0">自己紹介:{{$user['biography']}}</h3>
             </div>
             @endforeach
    

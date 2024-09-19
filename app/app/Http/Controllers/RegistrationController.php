@@ -89,7 +89,7 @@ class RegistrationController extends Controller
         ]);
       }
 
-
+//ユーザ情報編集
       public function edit(int $id,Request $request) { 
 
        $instance = new User;
@@ -97,7 +97,6 @@ class RegistrationController extends Controller
 
        $record->name = $request->name;
        $record->email = $request->email;
-       $record->password = $request->password;
        $record->image = $request->image;
        $record->biography = $request->biography;
 
@@ -108,6 +107,35 @@ class RegistrationController extends Controller
 
 
       }
+
+      //ユーザ退会画面へ
+      public function delete(int $id) {
+   
+        $params = ['id' => $id]; 
+
+        return view('withdrawal', [
+            'params' => $params,
+        ]);
+      }
+
+
+public function deleteuser(int $id) {
+
+
+    $user = User::find($id);
+   $user->delete();
+  
+  
+    return redirect('/');
+      
+}
+
+//出品一覧
+public function listingFrom(Request $request) {
+
+    return view('listing');
+
+}
 
 
 }

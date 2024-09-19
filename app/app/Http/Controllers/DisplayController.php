@@ -19,11 +19,7 @@ class DisplayController extends Controller
 
         $users = User::all();
 
-   // $follow = new follow;
-   // $follows = Auth::user()->follow()->get();
-
-   // $like = new like;
-  //  $likes = Auth::user()->like()->get();
+ 
 
    $purchase = new Purchase;
    $purchases = Auth::user()->purchase()->get();
@@ -36,7 +32,7 @@ class DisplayController extends Controller
 $registrations = Auth::user()->registration()->get();
    $allregistrations = $registration->all()->toArray();
 
-   $registration = Registration::all();
+
 
  // var_dump($allregistrations);
 
@@ -45,7 +41,7 @@ $registrations = Auth::user()->registration()->get();
             'users' => $users,
             'registrations' => $allregistrations,
             'purchases' => $allpurchases,
-    
+
         ]);
 
         

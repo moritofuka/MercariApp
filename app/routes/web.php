@@ -36,6 +36,13 @@ Route::post('/create_purchases', [App\Http\Controllers\RegistrationController::c
 //ユーザ編集画面
 Route::get('/edit_form/{id}', [RegistrationController::class, 'editForm'])->name('edit.user');
 Route::post('/edit_form/{id}',[RegistrationController::class, 'edit']);
+
+
+
+//ユーザ退会
+Route::get('/delete/{id}/delete', [RegistrationController::class, 'delete'])->name('delete.user');
+Route::post('/delete_user/{id}/delete',[RegistrationController::class, 'deleteuser'])->name('delete.from');
+
 //マイページへ
 Route::get('/my_form', [App\Http\Controllers\DisplayController::class, 'myFrom'])->name('my.form');
 //購入履歴
@@ -46,6 +53,11 @@ Route::get('/user_aicon', [App\Http\Controllers\DisplayController::class, 'usera
 
 //フォロー
   Route::post('/follow/{userId}', [ DisplayController::class, 'store']);
+
+
+//出品一覧
+Route::get('/listing_form', [App\Http\Controllers\RegistrationController::class, 'listingFrom'])->name('listing.from');
+
 
 //出品登録後メインページへ
 //Route::get('/registrations', [App\Http\Controllers\DisplayController::class, 'registrations'])->name('registrations.ok');
