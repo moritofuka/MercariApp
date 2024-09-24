@@ -127,7 +127,7 @@
       <h2>ユーザ情報編集画面</h2>
     </div>
      
-    <form action="{{ route('edit.user',['id' => $result['id']]) }}" method="post">
+    <form action="{{ route('edit.user',['id' => $result['id']]) }}" method="post" enctype="multipart/form-data">
       @csrf
 
             <div class="col-12">

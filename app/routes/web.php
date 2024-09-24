@@ -59,16 +59,14 @@ Route::get('/user_aicon', [App\Http\Controllers\DisplayController::class, 'usera
 Route::get('/listing_form', [App\Http\Controllers\RegistrationController::class, 'listingFrom'])->name('listing.from');
 
 
-//出品登録後メインページへ
-//Route::get('/registrations', [App\Http\Controllers\DisplayController::class, 'registrations'])->name('registrations.ok');
-
-//購入画面へ
-//Route::get('/purchases_form', [App\Http\Controllers\DisplayController::class, 'purchasesForm'])->name('purchases.form');
-//購入後メインページへ
-//Route::get('/purchases', [App\Http\Controllers\DisplayController::class, 'purchases'])->name('purchases.ok');
 });
 
+ // 管理者ユーザーのみ
+ Route::group(['middleware' => ['auth', 'can:admin']], function () {
+  Route::get('/admin', 'App\Http\Controllers\DisplayController@showAdminPage');
+});
 
+ 
 
 
 

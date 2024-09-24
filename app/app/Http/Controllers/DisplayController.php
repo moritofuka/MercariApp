@@ -33,7 +33,7 @@ $registrations = Auth::user()->registration()->get();
    $allregistrations = $registration->all()->toArray();
 
 
-
+   $image = Registration::orderBy('created_at', 'desc')->paginate(5);
  // var_dump($allregistrations);
 
 
@@ -41,6 +41,7 @@ $registrations = Auth::user()->registration()->get();
             'users' => $users,
             'registrations' => $allregistrations,
             'purchases' => $allpurchases,
+            'registrations' => $image,
 
         ]);
 
@@ -79,9 +80,12 @@ $registrations = Auth::user()->registration()->get();
 public function useraicon() {
     $user = new User;
     $alluser = $user->all()->toArray();
+    $image = User::orderBy('created_at', 'desc')->paginate(5);
+
 
     return view('aicon',[
         'users' => $alluser,
+        'users' => $image,
     ]);
 }
 

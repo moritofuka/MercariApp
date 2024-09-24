@@ -51,14 +51,15 @@
                           
                             <thead>
                         
-                            <tr><h5>画像{{$registration['image']}}</h5></tr>
+                         
+                            <img src="{{asset('storage/image/'.$registration->image)}}">
 
                             <!-- Product details-->
                             <div class="card-body p-4">
                                 <div class="text-center">
                                     <!-- Product name-->
-                                    <tr><h5 class="fw-bolder">商品名{{$registration['name']}}</h5></th>
-                                    <tr><h8 class="fw-bolder">価格{{$registration['amount']}}</h8></th>
+                                    <tr><h5 class="fw-bolder">商品名:{{$registration['name']}}</h5></th>
+                                    <tr><h8 class="fw-bolder">価格:{{$registration['amount']}}</h8></th>
                                 </div>
                             </div>
                             </tr>
@@ -69,12 +70,7 @@
                             <button type="submit" class="btn btn-primary">いいね</button>
                             </div>
 
-                            <meta name="csrf-token" content="{{ csrf_token() }}" />
-                            @foreach($users as $user)
-                            <div class="follow">
-                            <button onclick="follow({{ $user->id }})">フォローする</button>
-                            </div>
-                            @endforeach
+                    
                             <!-- Product actions-->
                             <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
                                 <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="{{ route('create.purchases') }}">購入</a></div>
@@ -82,21 +78,6 @@
                             @endforeach
                             </table>
                             <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
-<script>
-  function follow(userId) {
-    $.ajax({
-      // これがないと419エラーが出ます
-      headers: { "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content") },
-      url: `/follow/${userId}`,
-      type: "POST",
-    })
-      .done(data => {
-        console.log(data)
-      })
-      .fail(data => {
-        console.log(data)
-      })
-  }
-</script>
+
 
 

@@ -30,12 +30,10 @@ class RegistrationController extends Controller
             $registration->name = $request->name;
             $registration->amount = $request->amount;
             $registration->memo = $request->memo;
-
             $path = $request->file('image')->store('public/image/');
+          
             $filename = basename($path);
-            $registration->image = $filename;
-           // $registration->save();
-
+           $registration->image = $filename;
             $registration->comments = $request->comments;
             $registration->post_id = 1;
 
@@ -97,7 +95,10 @@ class RegistrationController extends Controller
 
        $record->name = $request->name;
        $record->email = $request->email;
-       $record->image = $request->image;
+    //   $record->image = $request->image;
+       $path = $request->file('image')->store('public/image/');
+       $filename = basename($path);
+      $record->image = $filename;
        $record->biography = $request->biography;
 
        $record->save();

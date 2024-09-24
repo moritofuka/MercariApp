@@ -29,8 +29,8 @@
         <!-- Header - set the background image for the header in the line below-->
         @foreach($users as $user)
             <div class="text my-5">
-                <img class="img-fluid rounded-circle mb-4" src="https://dummyimage.com/150x150/6c757d/dee2e6.jpg" alt="..." />
-                <div>{{$user['image']}}</div>
+           
+                <img src="{{asset('storage/image/'.$user->image)}}">
                 <div class="text-censer my-5">
                 <h3 class="text-black fs-3 fw-bolder">ユーザ名:{{$user['name']}}</h3>
                 <h3 class="text-black fs-3 fw-bolder">メールアドレス:{{$user['email']}}</h3>
