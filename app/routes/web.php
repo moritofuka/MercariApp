@@ -47,6 +47,11 @@ Route::post('/delete_user/{id}/delete',[RegistrationController::class, 'deleteus
 Route::get('/my_form', [App\Http\Controllers\DisplayController::class, 'myFrom'])->name('my.form');
 //購入履歴
 Route::get('/purchase_form', [App\Http\Controllers\DisplayController::class, 'purchaseFrom'])->name('purchase.form');
+
+
+Route::get('/Delete_purchase/{id}/delete',[RegistrationController::class,'purchaseDelete'])->name('purchase.delete');
+
+
 //ユーザアイコン画面へ
 Route::get('/user_aicon', [App\Http\Controllers\DisplayController::class, 'useraicon'])->name('user.aicon');
 
@@ -57,6 +62,11 @@ Route::get('/user_aicon', [App\Http\Controllers\DisplayController::class, 'usera
 
 //出品一覧
 Route::get('/listing_form', [App\Http\Controllers\RegistrationController::class, 'listingFrom'])->name('listing.from');
+
+
+   //「ajaxlike.jsファイルのurl:'ルーティング'」に書くものと合わせる。
+   Route::post('ajaxlike', 'DisplayController@ajaxlike')->name('posts.ajaxlike');
+
 
 
 });

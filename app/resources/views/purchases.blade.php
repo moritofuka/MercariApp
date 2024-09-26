@@ -168,10 +168,11 @@
 
             <div class="col-12">
             
-            　　　　　　　　
+       <form action="{{ route('purchase.delete',['id' => $result['id']]) }}" method="post" enctype="multipart/form-data">
+      @csrf
                                 <button type="submit" class="btn btn-primary">購入</button>
                         
-            
+    </form>    
             </div>
     
             </from>   

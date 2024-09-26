@@ -58,22 +58,35 @@ class RegistrationController extends Controller
       public function createpurchases(Request $request) { 
 
           $purchase = new Purchase;
+          $registration = new Registration;
 
           $purchase->name = $request->name;
           $purchase->tel = $request->tel;
           $purchase->postcode = $request->postcode;
           $purchase->address = $request->address;
     
-
+          $registration->del_flg = 1;
+          $registration->save();
         
 
           Auth::user()->purchase()->save($purchase);
        //   $registration->save();
           return redirect('/');
       
-     
-
       }
+
+
+      public function purchaseDelete(int $id,Request $request) { 
+
+     $registration = Registration::find($id);
+   
+    $registration->del_flg = 1;
+    $registration->save();
+  
+    return redirect('/');
+      }
+
+      
 
       //ユーザ編集画面
       public function editForm(int $id) { 

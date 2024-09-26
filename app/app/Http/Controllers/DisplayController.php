@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\Auth;
 
 use App\User;
 use App\follow;
-//use App\like;
+use App\Like;
 use App\Purchase;
 use App\Registration;
 
@@ -37,16 +37,69 @@ $registrations = Auth::user()->registration()->get();
  // var_dump($allregistrations);
 
 
+
+//いいね機能
+  // ユーザの投稿の一覧を作成日時の降順で取得
+        //withCount('テーブル名')とすることで、リレーションの数も取得できます。
+        $posts = Registration::withCount('likes')->orderBy('created_at', 'desc')->paginate(10);
+        $like_model = new Like;
+
+
+
         return view('main',[
             'users' => $users,
             'registrations' => $allregistrations,
             'purchases' => $allpurchases,
             'registrations' => $image,
+            'posts' => $posts,
+            'like_model'=>$like_model,
 
         ]);
 
         
         }
+
+
+        public function likes()
+        {
+          return $this->hasMany(Like::class, 'service_id');
+        }
+
+//いいね機能
+
+public function ajaxlike(Request $request)
+{
+    $id = Auth::user()->id;
+    $post_id = $request->post_id;
+    $like = new Like;
+    $post = Registration::findOrFail($post_id);
+
+    // 空でない（既にいいねしている）なら
+    if ($like->like_exist($id, $post_id)) {
+        //likesテーブルのレコードを削除
+        $like = Like::where('post_id', $post_id)->where('user_id', $id)->delete();
+    } else {
+        //空（まだ「いいね」していない）ならlikesテーブルに新しいレコードを作成する
+        $like = new Like;
+        $like->post_id = $request->post_id;
+        $like->user_id = Auth::user()->id;
+        $like->save();
+    }
+
+    //loadCountとすればリレーションの数を○○_countという形で取得できる（今回の場合はいいねの総数）
+    $postLikesCount = $post->loadCount('likes')->likes_count;
+
+    //一つの変数にajaxに渡す値をまとめる
+    //今回ぐらい少ない時は別にまとめなくてもいいけど一応。笑
+    $json = [
+        'postLikesCount' => $postLikesCount,
+    ];
+    //下記の記述でajaxに引数の値を返す
+    return response()->json($json);
+}
+
+
+
 
     //マイページ
    public function myFrom() {
