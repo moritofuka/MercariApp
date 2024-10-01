@@ -64,9 +64,8 @@ Route::get('/user_aicon', [App\Http\Controllers\DisplayController::class, 'usera
 Route::get('/listing_form', [App\Http\Controllers\RegistrationController::class, 'listingFrom'])->name('listing.from');
 
 
-   //「ajaxlike.jsファイルのurl:'ルーティング'」に書くものと合わせる。
-   Route::post('ajaxlike', 'DisplayController@ajaxlike')->name('posts.ajaxlike');
-
+   //「like.jsファイルのurl:'ルーティング'」に書くものと合わせる。
+   Route::post('like', 'DisplayController@like')->name('posts.ajaxlike');
 
 
 });

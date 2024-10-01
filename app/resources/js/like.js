@@ -9,7 +9,7 @@ $(function () {
                 headers: {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                 },
-                url: '/ajaxlike',  //routeの記述
+                url: '/like',  //routeの記述
                 type: 'POST', //受け取り方法の記述（GETもある）
                 data: {
                     'post_id': likePostId //コントローラーに渡すパラメーター
@@ -33,11 +33,7 @@ $(function () {
                 console.log(err);
                 console.log(xhr);
             });
-
-      
         
         return false;
     });
-
-
     });

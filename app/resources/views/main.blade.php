@@ -3,6 +3,12 @@
 <!DOCTYPE html>
 <html lang="en">
 
+<head>
+<meta name="csrf-token" content="{{ csrf_token() }}">
+
+
+</head>
+
 
     <body>
 
@@ -40,18 +46,22 @@
             </div>
         </header>
         <!-- Section-->
+
+
+   
         <section class="py-5">
             <div class="container px-4 px-lg-5 mt-5">
                 <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
                     <div class="col mb-5">
                         <div class="card h-100">
                         <table class='table'>
+               
                         @foreach($registrations as $registration)
                             <!-- Product image-->
                           
                             <thead>
-                        
-                         
+                            <tr>
+                     
                             <img src="{{asset('storage/image/'.$registration->image)}}">
 
                             <!-- Product details-->
@@ -64,26 +74,25 @@
                             </div>
                             </tr>
                             </thead>
-                     
 
-                            <div class="goodBtn">
-                            <button type="submit" class="btn btn-primary">いいね</button>
 
-                            
 
-                            @if($like_model->like_exist(Auth::user()->id,$post->id))
+                       
+@if($like_model->like_exist(Auth::user()->id,$registration->id))
 <p class="favorite-marke">
-  <a class="js-like-toggle loved" href="" data-postid="{{ $post->id }}"><i class="fas fa-heart"></i></a>
-  <span class="likesCount">{{$post->likes_count}}</span>
+  <a class="js-like-toggle loved" href="" data-postid="{{ $registration->id }}"><i class="far fa-heart like-btn" >♡</i></a>
+  <span class="likesCount">{{$registration->likes_count}}</span>
 </p>
 @else
 <p class="favorite-marke">
-  <a class="js-like-toggle" href="" data-postid="{{ $post->id }}"><i class="fas fa-heart"></i></a>
-  <span class="likesCount">{{$post->likes_count}}</span>
+  <a class="js-like-toggle" href="" data-postid="{{ $registration->id }}"><i class="far fa-heart like-btn" >♡</i></a>
+  <span class="likesCount">{{$registration->likes_count}}</span>
 </p>
 @endif​
 
-                            </div>
+                           
+
+</div>
 
                     
                             <!-- Product actions-->
@@ -95,4 +104,5 @@
                             <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
 
 
-
+</body>               
+                            

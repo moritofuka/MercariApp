@@ -39,35 +39,30 @@ $registrations = Auth::user()->registration()->get();
 
 
 //いいね機能
-  // ユーザの投稿の一覧を作成日時の降順で取得
-        //withCount('テーブル名')とすることで、リレーションの数も取得できます。
-        $posts = Registration::withCount('likes')->orderBy('created_at', 'desc')->paginate(10);
-        $like_model = new Like;
+//$posts = Registration::withCount('likes')->orderBy('created_at', 'desc')->paginate(10);
 
 
+$posts = Registration::withCount('likes')->orderBy('created_at', 'desc')->paginate(10);
+$like_model = new Like;
 
         return view('main',[
             'users' => $users,
             'registrations' => $allregistrations,
             'purchases' => $allpurchases,
-            'registrations' => $image,
-            'posts' => $posts,
+            'registrations' =>$image,
+            'registrations' =>$posts,
             'like_model'=>$like_model,
+
 
         ]);
 
         
         }
 
-
-        public function likes()
-        {
-          return $this->hasMany(Like::class, 'service_id');
-        }
-
+ 
 //いいね機能
 
-public function ajaxlike(Request $request)
+public function like(Request $request)
 {
     $id = Auth::user()->id;
     $post_id = $request->post_id;
@@ -142,12 +137,7 @@ public function useraicon() {
     ]);
 }
 
-//フォロー
-public function store($userId)
-    {
-        Auth::user()->follows()->attach($userId);
-        return;
-    }
+
 
 
 

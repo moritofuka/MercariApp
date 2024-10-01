@@ -41,13 +41,18 @@ class User extends Authenticatable
         return $this->belongsToMany('App\User','follows','user_id','follow_id');
     }
 
-    public function like(){
-        return $this->hasMany('App\like');
-    }
+   public function likes(){
+       return $this->hasMany('App\like');
+  }
     public function purchase(){
         return $this->hasMany('App\purchase');
     }
     public function registration(){
         return $this->hasMany('App\Registration');
     }
+
+
+
+
+
 }

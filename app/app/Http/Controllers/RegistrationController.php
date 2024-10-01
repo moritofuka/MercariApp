@@ -33,10 +33,10 @@ class RegistrationController extends Controller
             $path = $request->file('image')->store('public/image/');
           
             $filename = basename($path);
-           $registration->image = $filename;
+            $registration->image = $filename;
             $registration->comments = $request->comments;
             $registration->post_id = 1;
-
+          
            // $registration = Registration::where('post_id','0')->where('user_id',Auth::id())->get();
 
             Auth::user()->registration()->save($registration);
