@@ -29,8 +29,9 @@
         <!-- Header - set the background image for the header in the line below-->
         @foreach($users as $user)
             <div class="text my-5">
-           
-                <img src="{{asset('storage/image/'.$user->image)}}">
+
+                <img src="{{asset('storage/image/'.$user->image)}}"　width="300" height="200px">
+
                 <div class="text-censer my-5">
                 <h3 class="text-black fs-3 fw-bolder">ユーザ名:{{$user['name']}}</h3>
                 <h3 class="text-black fs-3 fw-bolder">メールアドレス:{{$user['email']}}</h3>
@@ -46,7 +47,7 @@
 
 
 
-                <h3 class="text-black-50 mb-0">自己紹介:{{$user['biography']}}</h3>
+                <h3 class="text-black fs-3 fw-bolder">自己紹介:{{$user['biography']}}</h3>
             </div>
             @endforeach
    
@@ -55,3 +56,29 @@
       
     </body>
 </html>
+
+
+
+
+
+
+
+
+
+
+@extends('layouts.layout')
+
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+        <meta name="description" content="" />
+        <meta name="author" content="" />
+        <title>Full Width Pics - Start Bootstrap Template</title>
+        <!-- Favicon-->
+        <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
+        <!-- Core theme CSS (includes Bootstrap)-->
+        <link href="css/styles.css" rel="stylesheet" />
+    </head>
+  

@@ -65,8 +65,7 @@ Route::get('/listing_form', [App\Http\Controllers\RegistrationController::class,
 
 
    //「like.jsファイルのurl:'ルーティング'」に書くものと合わせる。
-   Route::post('like', 'DisplayController@like')->name('posts.ajaxlike');
-
+  Route::post('/like',[App\Http\Controllers\RegistrationController::class, 'like'])->name('registrations.ajaxlike');
 
 });
 

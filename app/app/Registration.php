@@ -9,15 +9,11 @@ class Registration extends Model
 
     protected $fillable = ['name', 'amount','memo','image','comments'];
 
- 
-   // public function likes()
-   // {
-   //   return $this->hasMany('App\Like');
-   // }
+
 
    public function likes()
     {
-      return $this->hasMany(Like::class, 'user_id');
+      return $this->hasMany(Like::class, 'registration_id');
     }
 
     public function user() {
@@ -25,8 +21,5 @@ class Registration extends Model
     }
  
 
-public function like_exist($user_id, $post_id) {
-    return Like::where('user_id', $user_id)->where('post_id', $post_id)->exists();
-}
 
 }

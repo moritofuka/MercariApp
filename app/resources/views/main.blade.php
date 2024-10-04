@@ -5,12 +5,17 @@
 
 <head>
 <meta name="csrf-token" content="{{ csrf_token() }}">
-
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 
 </head>
 
 
     <body>
+<style>
+    .loved i {
+  color: red !important;
+}
+</style>
 
         <!-- Navigation-->
         <nav class="navbar navbar-expand-lg navbar-light bg-light">
@@ -44,18 +49,25 @@
                     <p class="lead fw-normal text-white-50 mb-0">メインページへようこそ</p>
                 </div>
             </div>
+           
         </header>
         <!-- Section-->
 
 
-   
+        <form>
         <section class="py-5">
+            商品名・商品説明
+        <input type="text" name="from" value="{{ $from }}">
+        <button type="submit" class='btn btn-primary'>検索</button>
+</form>
+
+
+
             <div class="container px-4 px-lg-5 mt-5">
                 <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
                     <div class="col mb-5">
                         <div class="card h-100">
                         <table class='table'>
-               
                         @foreach($registrations as $registration)
                             <!-- Product image-->
                           
@@ -77,18 +89,18 @@
 
 
 
-                       
 @if($like_model->like_exist(Auth::user()->id,$registration->id))
 <p class="favorite-marke">
-  <a class="js-like-toggle loved" href="" data-postid="{{ $registration->id }}"><i class="far fa-heart like-btn" >♡</i></a>
+  <a class="js-like-toggle loved" href="" data-registrationid="{{ $registration->id }}"><i class="fas fa-heart"></i></a>
   <span class="likesCount">{{$registration->likes_count}}</span>
 </p>
 @else
 <p class="favorite-marke">
-  <a class="js-like-toggle" href="" data-postid="{{ $registration->id }}"><i class="far fa-heart like-btn" >♡</i></a>
+  <a class="js-like-toggle" href="" data-registrationid="{{ $registration->id }}"><i class="fas fa-heart"></i></a>
   <span class="likesCount">{{$registration->likes_count}}</span>
 </p>
-@endif​
+@endif​              
+
 
                            
 
@@ -103,6 +115,52 @@
                             </table>
                             <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
 
+<script>
+    $(function () {
+    console.log('読み込み');
+    var like = $('.js-like-toggle');
+    var likeregistrationId;
+    
+    like.on('click', function () {
+        console.log('クリック');
+        var $this = $(this);
+        likeregistrationId = $this.data('registrationid');
+        $.ajax({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                url: '/like',  //routeの記述
+                type: 'POST', //受け取り方法の記述（GETもある）
+                data: {
+                    'registration_id': likeregistrationId //コントローラーに渡すパラメーター
+                },
+        })
+    
+            // Ajaxリクエストが成功した場合
+            .done(function (data) {
+    //lovedクラスを追加
+                $this.toggleClass('loved'); 
+    
+    //.likesCountの次の要素のhtmlを「data.postLikesCount」の値に書き換える
+                $this.next('.likesCount').html(data.registrationLikesCount); 
+    
+            })
+            // Ajaxリクエストが失敗した場合
+            .fail(function (data, xhr, err) {
+    //ここの処理はエラーが出た時にエラー内容をわかるようにしておく。
+    //とりあえず下記のように記述しておけばエラー内容が詳しくわかります。笑
+                console.log('エラー');
+                console.log(err);
+                console.log(xhr);
+            });
+        
+        return false;
+    });
+    });
 
-</body>               
+</script>
+</body>     
+
+
+
                             

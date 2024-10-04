@@ -15,7 +15,7 @@ use App\Registration;
 
 class DisplayController extends Controller
 {
-    public function index() {
+    public function index(Request $request) {
 
         $users = User::all();
 
@@ -25,33 +25,49 @@ class DisplayController extends Controller
    $purchases = Auth::user()->purchase()->get();
    $allpurchases = $purchase->all()->toArray();
 
-  // var_dump($allpurchases);
+  //($allpurchases);
 
 
-   $registration = new Registration;
-$registrations = Auth::user()->registration()->get();
-   $allregistrations = $registration->all()->toArray();
+   
 
 
    $image = Registration::orderBy('created_at', 'desc')->paginate(5);
- // var_dump($allregistrations);
+  //dd($allregistrations);
 
 
 
-//いいね機能
-//$posts = Registration::withCount('likes')->orderBy('created_at', 'desc')->paginate(10);
+  $registration = new Registration;
+  $query = $registration->withCount('likes');
 
 
-$posts = Registration::withCount('likes')->orderBy('created_at', 'desc')->paginate(10);
+ $user_id = Auth::id();
+ //キーワード受け取り
+ $from = $request->input('from');
+
+
+ // 日付検索の条件追加
+if(!empty($from)) {
+   $query = $query->whereBetween('name','memo', [$from]);
+
+ }
+ 
+ // クエリの実行
+ $allregistrations = $query->get();
+
+
+
+
+
+//いいね
+$registrations = Registration::withCount('likes')->orderBy('created_at', 'desc')->paginate(10);
 $like_model = new Like;
 
         return view('main',[
             'users' => $users,
             'registrations' => $allregistrations,
             'purchases' => $allpurchases,
-            'registrations' =>$image,
-            'registrations' =>$posts,
             'like_model'=>$like_model,
+            'from' => $from,
 
 
         ]);
@@ -60,38 +76,6 @@ $like_model = new Like;
         }
 
  
-//いいね機能
-
-public function like(Request $request)
-{
-    $id = Auth::user()->id;
-    $post_id = $request->post_id;
-    $like = new Like;
-    $post = Registration::findOrFail($post_id);
-
-    // 空でない（既にいいねしている）なら
-    if ($like->like_exist($id, $post_id)) {
-        //likesテーブルのレコードを削除
-        $like = Like::where('post_id', $post_id)->where('user_id', $id)->delete();
-    } else {
-        //空（まだ「いいね」していない）ならlikesテーブルに新しいレコードを作成する
-        $like = new Like;
-        $like->post_id = $request->post_id;
-        $like->user_id = Auth::user()->id;
-        $like->save();
-    }
-
-    //loadCountとすればリレーションの数を○○_countという形で取得できる（今回の場合はいいねの総数）
-    $postLikesCount = $post->loadCount('likes')->likes_count;
-
-    //一つの変数にajaxに渡す値をまとめる
-    //今回ぐらい少ない時は別にまとめなくてもいいけど一応。笑
-    $json = [
-        'postLikesCount' => $postLikesCount,
-    ];
-    //下記の記述でajaxに引数の値を返す
-    return response()->json($json);
-}
 
 
 
@@ -101,10 +85,11 @@ public function like(Request $request)
 
     $user = new User;
     $alluser = $user->all()->toArray();
-
+    $image = User::orderBy('created_at', 'desc')->paginate(5);
 
         return view('my',[
             'users' => $alluser,
+            'users' => $image,
         ]);
    }
 

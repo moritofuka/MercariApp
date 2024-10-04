@@ -82,14 +82,15 @@
                                 @endif
                             </div>
                         </div>
-                        password.request
+                   
                         <div class="form-group row mb-0">
                             <div class="col-md-8 offset-md-4">
                             <a class="nav-link" href="{{ route('register') }}">
                                 <button type="submit" class="btn btn-primary">
                                     {{ __('新規登録') }}
-                            </a>
+                                    </a>
                                 </button>
+                            
 　　　　　　　　　　　　　　 </div>
 
                     </form>

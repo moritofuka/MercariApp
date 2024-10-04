@@ -1,4 +1,5 @@
 $(function () {
+    console.log('読み込み');
     var like = $('.js-like-toggle');
     var likePostId;
     

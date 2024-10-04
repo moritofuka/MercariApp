@@ -152,4 +152,41 @@ public function listingFrom(Request $request) {
 }
 
 
+
+
+
+//いいね機能
+
+public function like(Request $request)
+{
+    $id = Auth::user()->id;
+    $registration_id = $request->registration_id;
+    $like = new Like;
+    $registration = Registration::findOrFail($registration_id);
+
+    // 空でない（既にいいねしている）なら
+    if ($like->like_exist($id, $registration_id)) {
+        //likesテーブルのレコードを削除
+        $like = Like::where('registration_id', $registration_id)->where('user_id', $id)->delete();
+    } else {
+        //空（まだ「いいね」していない）ならlikesテーブルに新しいレコードを作成する
+        $like = new Like;
+        $like->registration_id = $request->registration_id;
+        $like->user_id = Auth::user()->id;
+        $like->save();
+    }
+
+    //loadCountとすればリレーションの数を○○_countという形で取得できる（今回の場合はいいねの総数）
+    $registrationLikesCount = $registration->loadCount('likes')->likes_count;
+
+    //一つの変数にajaxに渡す値をまとめる
+    $json = [
+        'registrationLikesCount' => $registrationLikesCount,
+    ];
+    //下記の記述でajaxに引数の値を返す
+    return response()->json($json);
+}
+
+
+
 }
