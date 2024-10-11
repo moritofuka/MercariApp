@@ -24,8 +24,8 @@
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-4">
-                        <li class="nav-item"><a class="nav-link active" aria-current="page" href="#!">Home</a></li>
                         <li class="nav-item"><a class="nav-link" href="{{ route('my.form') }}">マイページへ</a></li>
+                        <li class="nav-item"><a class="nav-link" href="{{ route('admin.from') }}">管理者ページへ</a></div>
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" id="navbarDropdown" href="{{ route('create.registration') }}" >商品登録</a>
                         </li>
@@ -33,9 +33,7 @@
                     <form class="d-flex">
                         <button class="btn btn-outline-dark" type="submit">
                          
-                        <a class="nav-link dropdown-toggle" href="{{ route('user.aicon') }}" >
-                            <span class="rounded-pill">ユーザアイコン</span>
-                        </a>
+                        <a class="nav-item" href="{{ route('user.aicon') }}" >ユーザアイコン</a>
                         </button>
                     </form>
                 </div>
@@ -52,14 +50,32 @@
            
         </header>
         <!-- Section-->
+        <div>
+  <form action="{{ route('main.index') }}" method="GET">
+  @csrf
+    <input type="text" name="keyword" value="{{ $keyword }}">
+    <input type="submit" value="検索">
 
 
-        <form>
-        <section class="py-5">
-            商品名・商品説明
-        <input type="text" name="from" value="{{ $from }}">
-        <button type="submit" class='btn btn-primary'>検索</button>
-</form>
+    <div class="row mt-1 justify-content-center">
+                <div class="col-md-8 col-lg-12">            
+                    <label for="amount">{{ __('金額範囲指定') }}</label>
+                    <select class="form-control" id="amount" name="amount">
+                        <option value="0">{{ __('指定なし') }}</option>
+                        <option value="1">1~999</option>
+                        <option value="2">1,000~9,999</option>
+                        <option value="3">10,000~49,999</option>
+                        <option value="4">50,000~99,999</option>
+                        <option value="5">100,000~</option>
+                    </select>
+                </div>
+            </div>
+</from>
+
+</div>
+
+
+
 
 
 
@@ -69,6 +85,7 @@
                         <div class="card h-100">
                         <table class='table'>
                         @foreach($registrations as $registration)
+                        @if($registration['post_id'] == 1)
                             <!-- Product image-->
                           
                             <thead>
@@ -106,11 +123,11 @@
 
 </div>
 
-                    
                             <!-- Product actions-->
                             <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
                                 <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="{{ route('create.purchases') }}">購入</a></div>
                             </div>
+                            @endif
                             @endforeach
                             </table>
                             <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>

@@ -1,5 +1,3 @@
-
-
 <!doctype html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 <head>
@@ -33,7 +31,7 @@
 @if(Auth::check())
                     <spen class = "my-navbar-item">{{ Auth::user()->name }}</spen>
                     /
-                    <a href = "#" id="logout" class ="my-navbar-item">ログアウト</a>
+                    <a href = "{{route('logout')}}" id="logout" class ="my-navbar-item">ログアウト</a>
                     <form id = "logout-form" action = "{{ route('logout') }}" method = "POST" style = "display: none;">
                         @csrf
                     </form>

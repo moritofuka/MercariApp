@@ -19,11 +19,11 @@ use App\Http\Controllers\RegistrationController;
 //});
 Auth::routes();
 
-Route::group(['middleware' => 'auth'], function() {
-
-//Route::get('/', 'DisplayController@index');
+Route::group(['middleware' => ['auth', 'can:user-higher']], function () {
 
 Route::get('/', [App\Http\Controllers\DisplayController::class,'index'])->name('main.index');
+
+
 
 //出品登録
 Route::get('/create_registration', [App\Http\Controllers\RegistrationController::class, 'createregistrationFrom'])->name('create.registration');
@@ -67,14 +67,33 @@ Route::get('/listing_form', [App\Http\Controllers\RegistrationController::class,
    //「like.jsファイルのurl:'ルーティング'」に書くものと合わせる。
   Route::post('/like',[App\Http\Controllers\RegistrationController::class, 'like'])->name('registrations.ajaxlike');
 
+
+//検索
+//Route::get('/', [App\Http\Controllers\DisplayController::class, 'index'])->name('posts.index');
+
 });
 
- // 管理者ユーザーのみ
- Route::group(['middleware' => ['auth', 'can:admin']], function () {
-  Route::get('/admin', 'App\Http\Controllers\DisplayController@showAdminPage');
+
+
+// 管理者以上
+Route::group(['middleware' => ['auth', 'can:admin-higher']], function () {
+  //管理画面へ
+  Route::get('/auth', [App\Http\Controllers\DisplayController::class,'admin'])->name('admin.from');
+//ユーザリスト画面へ
+  Route::get('/list', [App\Http\Controllers\DisplayController::class,'adminuserlist'])->name('user.list');
+//出品リストへ
+Route::get('/purchaselist', [App\Http\Controllers\DisplayController::class,'purchaselist'])->name('purchase.list');
+//出品物理削除（非表示）
+Route::post('/delete_list/{id}/delete',[App\Http\Controllers\RegistrationController::class, 'list'])->name('delete.list');
+//解除
+Route::post('/nodelete_list/{id}/nodelete',[App\Http\Controllers\RegistrationController::class, 'nolist'])->name('nodelete.list');
+
+
+  
 });
 
- 
+
+
 
 
 

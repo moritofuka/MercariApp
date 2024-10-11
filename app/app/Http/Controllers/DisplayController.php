@@ -22,8 +22,8 @@ class DisplayController extends Controller
  
 
    $purchase = new Purchase;
-   $purchases = Auth::user()->purchase()->get();
-   $allpurchases = $purchase->all()->toArray();
+  // $purchases = Auth::user()->purchase()->get();
+  $allpurchases = $purchase->all()->toArray();
 
   //($allpurchases);
 
@@ -39,24 +39,54 @@ class DisplayController extends Controller
   $registration = new Registration;
   $query = $registration->withCount('likes');
 
+//検索　部分一致
+  $user_id = Auth::id();
 
- $user_id = Auth::id();
- //キーワード受け取り
- $from = $request->input('from');
+ $keyword = $request->input('keyword');
 
 
- // 日付検索の条件追加
-if(!empty($from)) {
-   $query = $query->whereBetween('name','memo', [$from]);
+ $query = Registration::query();
 
+ if(!empty($keyword)) {
+    $query->where('name', 'LIKE', "%{$keyword}%")
+       ->orWhere('memo', 'LIKE', "%{$keyword}%");
  }
+
+
+
+
+
+ //検索　価格
+
+
+        // 金額範囲検索
+        if ($request->has('amount')) {
+            $amountOption = $request->input('amount');
+            switch ($amountOption) {
+                case 1:
+                    $query->whereBetween('amount', [1, 999]);
+                    break;
+                case 2:
+                    $query->whereBetween('amount', [1000, 9999]);
+                    break;
+                case 3:
+                    $query->whereBetween('amount', [10000, 49999]);
+                    break;
+                case 4:
+                    $query->whereBetween('amount', [50000, 99999]);
+                    break;
+                case 5:
+                    $query->where('amount', '>=', 100000);
+                    break;
+            }
+        }
+
+
+        // 検索クエリをビューに渡す
+      //  $searchQuery = $request->input('keyword');
+      $allregistrations = $query->get();
+  
  
- // クエリの実行
- $allregistrations = $query->get();
-
-
-
-
 
 //いいね
 $registrations = Registration::withCount('likes')->orderBy('created_at', 'desc')->paginate(10);
@@ -67,8 +97,7 @@ $like_model = new Like;
             'registrations' => $allregistrations,
             'purchases' => $allpurchases,
             'like_model'=>$like_model,
-            'from' => $from,
-
+           'keyword' => $keyword,
 
         ]);
 
@@ -122,9 +151,50 @@ public function useraicon() {
     ]);
 }
 
+//管理画面へ
+public function admin(Request $request) {
 
+    return view('index');
+
+    }
+
+    //ユーザリストへ
+    public function adminuserlist(Request $request) {
+
+    $user = new User;
+    $alluser = $user->all()->toArray();
+    $image = User::orderBy('created_at', 'desc')->paginate(5);
+
+
+    return view('userlist',[
+        'users' => $alluser,
+        'users' => $image,
+    ]);
+    
+        }
+
+ //出品リストへ
+ public function purchaselist(Request $request) {
+
+    $registration = new Registration;
+    $allregistration = $registration->all()->toArray();
+    $image = Registration::orderBy('created_at', 'desc')->paginate(10);
+
+    return view('purchaselist',[
+       'registrations' => $allregistration,
+        'registrations' => $image,
+    ]);
 
 
 
     }
+
+ 
+
+    
+
+
+
+
+};
 

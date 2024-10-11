@@ -126,10 +126,12 @@
     <div class="py-5 text-center">
       <h2>購入画面</h2>
     </div>
-     
+    @foreach($registrations as $registration)
     <div class="col-12">
         <h5>画像</h5>
+        <img src="{{asset('storage/image/'.$registration->image)}}"　width="300" height="200px">
     </div>
+    @endforeach
 
     <div class="col-12">
         <h6>購入するユーザ情報</h6>

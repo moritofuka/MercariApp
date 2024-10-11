@@ -40,7 +40,7 @@ class RegistrationController extends Controller
            // $registration = Registration::where('post_id','0')->where('user_id',Auth::id())->get();
 
             Auth::user()->registration()->save($registration);
-         //   $registration->save();
+          // $registration->save();
             return redirect('/');
         
        
@@ -50,42 +50,39 @@ class RegistrationController extends Controller
 
 //購入機能
         public function createpurchasesFrom(Request $request) {
+            $user = new User;
+            $alluser = $user->all()->toArray();
+            $image = Registration::orderBy('created_at', 'desc')->get();
 
-            return view('purchases');
+            return view('purchases',[
+                'registrations' => $image,
+                'users' => $alluser,
+            ]);
       
   }
 
       public function createpurchases(Request $request) { 
 
           $purchase = new Purchase;
-          $registration = new Registration;
 
+       
           $purchase->name = $request->name;
           $purchase->tel = $request->tel;
           $purchase->postcode = $request->postcode;
           $purchase->address = $request->address;
     
-          $registration->del_flg = 1;
-          $registration->save();
+        
+        //  $purchase->save();
         
 
           Auth::user()->purchase()->save($purchase);
-       //   $registration->save();
+         //$registration->save();
           return redirect('/');
       
       }
 
 
-      public function purchaseDelete(int $id,Request $request) { 
-
-     $registration = Registration::find($id);
-   
-    $registration->del_flg = 1;
-    $registration->save();
-  
-    return redirect('/');
-      }
-
+    
       
 
       //ユーザ編集画面
@@ -186,6 +183,35 @@ public function like(Request $request)
     //下記の記述でajaxに引数の値を返す
     return response()->json($json);
 }
+
+
+//出品リスト非表示
+// 論理削除
+public function list(int $id) {
+
+ 
+
+ $registration = Registration::findOrFail($id);
+ $registration->post_id = 2;
+ $registration->save();
+
+  
+    return redirect('/');
+  }
+
+
+  public function nolist(int $id) {
+
+ 
+
+    $registration = Registration::findOrFail($id);
+    $registration->post_id =1;
+    $registration->save();
+   
+     
+       return redirect('/');
+     }
+   
 
 
 
