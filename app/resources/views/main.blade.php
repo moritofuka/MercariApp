@@ -15,6 +15,11 @@
     .loved i {
   color: red !important;
 }
+
+
+
+
+
 </style>
 
         <!-- Navigation-->
@@ -123,6 +128,54 @@
 
 </div>
 
+@foreach($users as $user)
+<div>{{$user->name}}</div>
+
+<div>
+  <button onclick="follow({{ $user->id }})">フォローする</button>
+</div>
+<div>
+  <button onclick="followdetach({{ $user->id }})">フォロー解除する</button>
+</div>
+@endforeach
+
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+<script>
+  function follow(userId) {
+    $.ajax({
+      // これがないと419エラーが出ます
+      headers: { "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content") },
+      url: `/follow/${userId}`,
+      type: "POST",
+    })
+      .done(data => {
+        console.log(data)
+      })
+      .fail(data => {
+        console.log(data)
+      })
+
+     
+  }
+
+  function followdetach(userId) {
+    $.ajax({
+      // これがないと419エラーが出ます
+      headers: { "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content") },
+      url: `/follow/${userId}/destroy`,
+      type: "POST",
+    })
+      .done(data => {
+        console.log(data)
+      })
+      .fail(data => {
+        console.log(data)
+      })
+
+     
+  }
+</script>
                             <!-- Product actions-->
                             <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
                                 <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="{{ route('create.purchases') }}">購入</a></div>

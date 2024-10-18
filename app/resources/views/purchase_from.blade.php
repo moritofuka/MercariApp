@@ -38,16 +38,16 @@
     </div>
     @foreach($registrations as $registration)
 
+    <label for="name">画像:</label>
+    <img src="{{asset('storage/image/'.$registration->image)}}" width="300" height="200px">
+
     <div class="col-12">
             <label for="name">出品名:</label>
               <h8 class="fw-bolder">{{$registration['name']}}</h8>
           
             </div>
 
-            <div class="col-12">
-              <label for="amount">画像: </label>
-              <h8 class="fw-bolder">{{$registration['image']}}</h8>
-              </div>
+           
 
             <div class="col-12">
               <label for="amount">価格: </label>

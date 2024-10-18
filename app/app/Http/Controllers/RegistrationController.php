@@ -35,7 +35,7 @@ class RegistrationController extends Controller
             $filename = basename($path);
             $registration->image = $filename;
             $registration->comments = $request->comments;
-            $registration->post_id = 1;
+        
           
            // $registration = Registration::where('post_id','0')->where('user_id',Auth::id())->get();
 
@@ -52,7 +52,10 @@ class RegistrationController extends Controller
         public function createpurchasesFrom(Request $request) {
             $user = new User;
             $alluser = $user->all()->toArray();
-            $image = Registration::orderBy('created_at', 'desc')->get();
+           // $image = Registration::orderBy('created_at', 'desc')->paginate(0);
+         //  $image = Registration::where('image' ,\Auth::registration()->id)->get();
+         $image = Registration::where('id' ,\Auth::user()->id)->get();
+
 
             return view('purchases',[
                 'registrations' => $image,
@@ -70,10 +73,11 @@ class RegistrationController extends Controller
           $purchase->tel = $request->tel;
           $purchase->postcode = $request->postcode;
           $purchase->address = $request->address;
-    
-        
-        //  $purchase->save();
-        
+
+
+         
+
+
 
           Auth::user()->purchase()->save($purchase);
          //$registration->save();
@@ -82,7 +86,28 @@ class RegistrationController extends Controller
       }
 
 
-    
+      public function deleteregistration() {
+
+         
+      // $registration = Registration::findOrFail($request);
+       //$registration = new Registration;
+// $registration->buy_flg = 1;
+     //  $registration->save();
+  
+       $registration = array(
+        'buy_flg' => 1,
+      
+    );
+    return redirect('/', compact('registration')); 
+      }
+
+
+
+
+
+ 
+
+
       
 
       //ユーザ編集画面
@@ -144,12 +169,31 @@ public function deleteuser(int $id) {
 //出品一覧
 public function listingFrom(Request $request) {
 
-    return view('listing');
+     $registration = new Registration;
+    $registration = Auth::user()->registration()->get();
+
+    return view('listing',[
+        'registrations' => $registration,
+
+    ]);
 
 }
 
 
+//フォロー
+public function store($userId)
+    {
+    
+        Auth::user()->follows()->attach($userId);
+        return;
+    }
 
+    public function destroy($userId)
+    {
+    
+        Auth::user()->follows()->detach($userId);
+        return;
+    }
 
 
 //いいね機能

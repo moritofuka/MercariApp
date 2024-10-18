@@ -33,6 +33,10 @@ Route::get('/create_purchases', [App\Http\Controllers\RegistrationController::cl
 Route::post('/create_purchases', [App\Http\Controllers\RegistrationController::class, 'createpurchases']);
 
 
+Route::post('/create_purchases', [App\Http\Controllers\RegistrationController::class, 'deleteregistration']);
+
+
+
 //ユーザ編集画面
 Route::get('/edit_form/{id}', [RegistrationController::class, 'editForm'])->name('edit.user');
 Route::post('/edit_form/{id}',[RegistrationController::class, 'edit']);
@@ -56,8 +60,7 @@ Route::get('/Delete_purchase/{id}/delete',[RegistrationController::class,'purcha
 Route::get('/user_aicon', [App\Http\Controllers\DisplayController::class, 'useraicon'])->name('user.aicon');
 
 
-//フォロー
-  Route::post('/follow/{userId}', [ DisplayController::class, 'store']);
+
 
 
 //出品一覧
@@ -68,8 +71,12 @@ Route::get('/listing_form', [App\Http\Controllers\RegistrationController::class,
   Route::post('/like',[App\Http\Controllers\RegistrationController::class, 'like'])->name('registrations.ajaxlike');
 
 
-//検索
-//Route::get('/', [App\Http\Controllers\DisplayController::class, 'index'])->name('posts.index');
+//フォロー
+
+  Route::post('/follow/{userId}', [ RegistrationController::class, 'store']);
+
+  Route::post('/follow/{userId}/destroy', [ RegistrationController::class, 'destroy']);
+
 
 });
 

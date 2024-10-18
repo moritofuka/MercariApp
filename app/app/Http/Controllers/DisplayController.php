@@ -114,8 +114,8 @@ $like_model = new Like;
 
     $user = new User;
     $alluser = $user->all()->toArray();
-    $image = User::orderBy('created_at', 'desc')->paginate(5);
-
+  //  $image = User::orderBy('created_at', 'desc')->paginate(5);
+  $image = User::where('id' ,\Auth::user()->id)->get();
         return view('my',[
             'users' => $alluser,
             'users' => $image,
@@ -129,24 +129,27 @@ $like_model = new Like;
 
     $registration = new Registration;
     $registrations = Auth::user()->registration()->get();
-       $allregistrations = $registration->all()->toArray();
-
+   //    $allregistrations = $registration->all()->toArray();
+   $image = Registration::orderBy('created_at', 'desc')->paginate(5);
 
    return view('purchase_from',[
-    'registrations' => $allregistrations,
+    'registrations' => $registrations,
    ]);
 }
 
 
 //ユーザアイコン画面へ
 public function useraicon() {
-    $user = new User;
-    $alluser = $user->all()->toArray();
-    $image = User::orderBy('created_at', 'desc')->paginate(5);
 
+    $user = new User;
+   // $alluser = $user->all()->toArray();
+   $user = Auth::user()->id;
+
+  //  $image = User::orderBy('created_at', 'desc')->paginate(1);
+  $image = User::where('id' ,\Auth::user()->id)->get();
 
     return view('aicon',[
-        'users' => $alluser,
+        'users' => $user,
         'users' => $image,
     ]);
 }
@@ -191,7 +194,7 @@ public function admin(Request $request) {
 
  
 
-    
+ 
 
 
 
