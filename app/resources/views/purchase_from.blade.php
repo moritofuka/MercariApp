@@ -34,16 +34,16 @@
 <div class="container">
   <main>
     <div class="py-5 text-center">
-      <h2>購入画面</h2>
+      <h2>購入履歴</h2>
     </div>
-    @foreach($registrations as $registration)
+    @foreach($purchases as $purchase)
 
     <label for="name">画像:</label>
-    <img src="{{asset('storage/image/'.$registration->image)}}" width="300" height="200px">
+    <img src="{{asset('storage/image/'.$purchase->registration->image)}}" width="300" height="200px">
 
     <div class="col-12">
             <label for="name">出品名:</label>
-              <h8 class="fw-bolder">{{$registration['name']}}</h8>
+              <h8 class="fw-bolder">{{$purchase->registration['name']}}</h8>
           
             </div>
 
@@ -51,13 +51,13 @@
 
             <div class="col-12">
               <label for="amount">価格: </label>
-              <h8 class="fw-bolder">{{$registration['amount']}}</h8>
+              <h8 class="fw-bolder">{{$purchase->registration['amount']}}</h8>
               
             </div>
 
             <div class="col-12">
               <label for="amount">購入日時: </label>
-              <h8 class="fw-bolder">{{$registration['created_at']}}</h8>
+              <h8 class="fw-bolder">{{$purchase->registration['created_at']}}</h8>
               
             </div>
 

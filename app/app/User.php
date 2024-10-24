@@ -5,6 +5,7 @@ namespace App;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Contracts\Auth\CanResetPassword;
 
 class User extends Authenticatable
 {
@@ -38,10 +39,13 @@ class User extends Authenticatable
     ];
 
     public function follows(){
-        return $this->belongsToMany('App\User','follows','user_id','follow_id');
-    }
+      
+   return $this->belongsToMany('App\User','follows','follow_id');
+   }
 
-   public function likes(){
+
+
+   public function like(){
        return $this->hasMany('App\like');
   }
     public function purchase(){

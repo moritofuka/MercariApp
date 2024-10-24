@@ -31,11 +31,12 @@ class RegistrationController extends Controller
             $registration->amount = $request->amount;
             $registration->memo = $request->memo;
             $path = $request->file('image')->store('public/image/');
+         
           
             $filename = basename($path);
             $registration->image = $filename;
             $registration->comments = $request->comments;
-        
+         
           
            // $registration = Registration::where('post_id','0')->where('user_id',Auth::id())->get();
 
@@ -49,66 +50,60 @@ class RegistrationController extends Controller
 
 
 //購入機能
-        public function createpurchasesFrom(Request $request) {
+        public function createpurchasesFrom(int $id,Request $request) {
             $user = new User;
             $alluser = $user->all()->toArray();
-           // $image = Registration::orderBy('created_at', 'desc')->paginate(0);
-         //  $image = Registration::where('image' ,\Auth::registration()->id)->get();
-         $image = Registration::where('id' ,\Auth::user()->id)->get();
+            $image = Registration::where('id' ,\Auth::user()->id)->get();
 
+
+           $registrations = new Registration;
+
+          $result = $registrations->find($id);
+
+    
 
             return view('purchases',[
                 'registrations' => $image,
                 'users' => $alluser,
+                'result' =>$result,
             ]);
       
   }
 
-      public function createpurchases(Request $request) { 
+      public function createpurchases(int $id,Request $request) { 
 
-          $purchase = new Purchase;
+        
+        $purchase = new Purchase;
 
        
           $purchase->name = $request->name;
           $purchase->tel = $request->tel;
           $purchase->postcode = $request->postcode;
           $purchase->address = $request->address;
-
-
-         
-
-
+          $purchase->registration_id = $id;
 
           Auth::user()->purchase()->save($purchase);
-         //$registration->save();
+
+
+          $registration = new Registration;
+         $record = $registration->find($id);
+           $record->buy_flg = 1;
+   
+           $record->save();
+          
+ 
+        
+
+
+
           return redirect('/');
       
       }
 
 
-      public function deleteregistration() {
-
-         
-      // $registration = Registration::findOrFail($request);
-       //$registration = new Registration;
-// $registration->buy_flg = 1;
-     //  $registration->save();
-  
-       $registration = array(
-        'buy_flg' => 1,
-      
-    );
-    return redirect('/', compact('registration')); 
-      }
+   
 
 
-
-
-
- 
-
-
-      
 
       //ユーザ編集画面
       public function editForm(int $id) { 
@@ -255,6 +250,21 @@ public function list(int $id) {
      
        return redirect('/');
      }
+
+
+     //ユーザ利用停止
+     //論理削除
+  public function userdelete(int $id){
+  
+    $user = User::findOrFail($id);
+     $user->del_flg = 1;
+     $user->save();
+
+
+   
+     return redirect('/');
+     
+ }
    
 
 

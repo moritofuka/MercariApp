@@ -127,15 +127,39 @@ $like_model = new Like;
    public function purchaseFrom() {
 
 
-    $registration = new Registration;
-    $registrations = Auth::user()->registration()->get();
-   //    $allregistrations = $registration->all()->toArray();
-   $image = Registration::orderBy('created_at', 'desc')->paginate(5);
+   $purchases = Auth::user()->purchase()->with('registration')->get();
+  // dd($purchase);
 
    return view('purchase_from',[
-    'registrations' => $registrations,
+    'purchases' => $purchases,
    ]);
 }
+
+
+//いいね一覧へ
+public function likeFrom() {
+
+
+    $likes = Auth::user()->like()->with('registration')->get();
+   // dd($likes);
+ 
+    return view('like',[
+     'likes' => $likes,
+    ]);
+ }
+
+
+ //フォロー一覧
+ public function followFrom() {
+
+
+    $follows = Auth::user()->follows()->with('user')->get();
+   // dd($likes);
+ 
+    return view('follow',[
+     'follows' => $follows,
+    ]);
+ }
 
 
 //ユーザアイコン画面へ

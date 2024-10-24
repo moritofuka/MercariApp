@@ -1,7 +1,5 @@
-
 @extends('layouts.layout')
 @section('content')
-
 <main>
     <h2>パスワード再設定</h2>
     <p>ご利用中のメールアドレスを入力してください</p>
@@ -14,9 +12,9 @@
             <span>{{ $errors->first('mail') }}</span>
         </div>
         <div>
+            <a href="{{ route('xxxx') }}">戻る</a>
             <button type="submit">再設定メールを送信</button>
         </div>
     </form>
 </main>
-
 @endsection

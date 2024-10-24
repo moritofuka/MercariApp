@@ -29,11 +29,11 @@ Route::get('/', [App\Http\Controllers\DisplayController::class,'index'])->name('
 Route::get('/create_registration', [App\Http\Controllers\RegistrationController::class, 'createregistrationFrom'])->name('create.registration');
 Route::post('/create_registration', [App\Http\Controllers\RegistrationController::class, 'createregistration']);
 //購入機能
-Route::get('/create_purchases', [App\Http\Controllers\RegistrationController::class, 'createpurchasesFrom'])->name('create.purchases');
-Route::post('/create_purchases', [App\Http\Controllers\RegistrationController::class, 'createpurchases']);
+Route::get('/create_purchases/{id}', [App\Http\Controllers\RegistrationController::class, 'createpurchasesFrom'])->name('create.purchases');
+Route::post('/create_purchases/{id}', [App\Http\Controllers\RegistrationController::class, 'createpurchases']);
 
 
-Route::post('/create_purchases', [App\Http\Controllers\RegistrationController::class, 'deleteregistration']);
+//Route::post('/create_purchases', [App\Http\Controllers\RegistrationController::class, 'deleteregistration']);
 
 
 
@@ -51,6 +51,16 @@ Route::post('/delete_user/{id}/delete',[RegistrationController::class, 'deleteus
 Route::get('/my_form', [App\Http\Controllers\DisplayController::class, 'myFrom'])->name('my.form');
 //購入履歴
 Route::get('/purchase_form', [App\Http\Controllers\DisplayController::class, 'purchaseFrom'])->name('purchase.form');
+
+
+//いいね一覧
+Route::get('/like_form', [App\Http\Controllers\DisplayController::class, 'likeFrom'])->name('like.form');
+
+
+//フォロー一覧
+Route::get('/follow_form', [App\Http\Controllers\DisplayController::class, 'followFrom'])->name('follow.form');
+
+
 
 
 Route::get('/Delete_purchase/{id}/delete',[RegistrationController::class,'purchaseDelete'])->name('purchase.delete');
@@ -78,6 +88,8 @@ Route::get('/listing_form', [App\Http\Controllers\RegistrationController::class,
   Route::post('/follow/{userId}/destroy', [ RegistrationController::class, 'destroy']);
 
 
+ 
+
 });
 
 
@@ -88,6 +100,10 @@ Route::group(['middleware' => ['auth', 'can:admin-higher']], function () {
   Route::get('/auth', [App\Http\Controllers\DisplayController::class,'admin'])->name('admin.from');
 //ユーザリスト画面へ
   Route::get('/list', [App\Http\Controllers\DisplayController::class,'adminuserlist'])->name('user.list');
+
+//ユーザ利用停止
+Route::post('/delete_user/{id}/delete',[App\Http\Controllers\RegistrationController::class, 'userdelete'])->name('delete.user');
+
 //出品リストへ
 Route::get('/purchaselist', [App\Http\Controllers\DisplayController::class,'purchaselist'])->name('purchase.list');
 //出品物理削除（非表示）
@@ -98,6 +114,22 @@ Route::post('/nodelete_list/{id}/nodelete',[App\Http\Controllers\RegistrationCon
 
   
 });
+
+
+
+
+//Route::prefix('reset')->group(function () {
+  // パスワード再設定用のメール送信フォーム
+ // Route::get('/', [App\Http\Controllers\UsersController::class, 'requestResetPassword'])->name('reset.form');
+  // メール送信処理
+ // Route::post('/send', 'UsersController@sendResetPasswordMail')->name('reset.send');
+  // メール送信完了
+ // Route::get('/send/complete', 'UsersController@sendCompleteResetPasswordMail')->name('reset.send.complete');
+  // パスワード再設定
+//  Route::get('/password/edit', 'UsersController@resetPassword')->name('reset.password.edit');
+  // パスワード更新
+//  Route::post('/password/update', 'UsersController@updatePassword')->name('reset.password.update');
+//});
 
 
 

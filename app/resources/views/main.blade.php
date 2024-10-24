@@ -91,6 +91,7 @@
                         <table class='table'>
                         @foreach($registrations as $registration)
                         @if($registration['post_id'] == 1)
+                        @if($registration['buy_flg'] == 0)
                             <!-- Product image-->
                           
                             <thead>
@@ -178,8 +179,9 @@
 </script>
                             <!-- Product actions-->
                             <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-                                <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="{{ route('create.purchases') }}">購入</a></div>
+                                <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="{{ route('create.purchases',['id' => $registration['id']]) }}">購入</a></div>
                             </div>
+                            @endif
                             @endif
                             @endforeach
                             </table>

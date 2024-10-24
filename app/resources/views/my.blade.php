@@ -47,9 +47,9 @@
                     <div class="col-lg-6">
                     <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
                         <li class="nav-item"><a class="nav-link" href="{{ route('listing.from') }}">自身の出品一覧</a></li>
-                        <li class="nav-item"><a class="nav-link" href="#!">いいねした出品一覧</a></li>
+                        <li class="nav-item"><a class="nav-link" href="{{ route('like.form') }}">いいね一覧へ</a></li>
                         <li class="nav-item"><a class="nav-link" href="{{ route('purchase.form') }}">購入履歴</a></li>
-                        <li class="nav-item"><a class="nav-link" href="#!">フォロー一覧</a></li>
+                        <li class="nav-item"><a class="nav-link" href="{{ route('follow.form') }}">フォロー一覧</a></li>
                         <li class="nav-item"><a class="nav-link" href="#!">売上履歴</a></li>
                     </ul>
                     </div>
