@@ -37,8 +37,8 @@
 
                 <div class="text-censer my-5">
 
-                <img src="{{asset('storage/image/'.$follow->user->image)}}"　width="100" height="100px">
-                <h3 class="text-black fs-3 fw-bolder">ユーザ名:{{$follow->user['name']}}</h3>
+                <img src="{{asset('storage/image/'.$follow->image)}}"　width="100" height="100px">
+                <h3 class="text-black fs-3 fw-bolder">ユーザ名:{{$follow['name']}}</h3>
             </div>
 
             <div class="text-center my-5">

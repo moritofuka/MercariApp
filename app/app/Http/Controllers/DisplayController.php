@@ -153,8 +153,10 @@ public function likeFrom() {
  public function followFrom() {
 
 
-    $follows = Auth::user()->follows()->with('user')->get();
-   // dd($likes);
+    $follows = Auth::user()->follows()->get();
+   // dd($follows);
+   // $follows = Auth::user()->follows()->with('user')->get();
+   
  
     return view('follow',[
      'follows' => $follows,

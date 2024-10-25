@@ -102,7 +102,7 @@ Route::group(['middleware' => ['auth', 'can:admin-higher']], function () {
   Route::get('/list', [App\Http\Controllers\DisplayController::class,'adminuserlist'])->name('user.list');
 
 //ユーザ利用停止
-Route::post('/delete_user/{id}/delete',[App\Http\Controllers\RegistrationController::class, 'userdelete'])->name('delete.user');
+Route::post('/delete_other_user/{id}/delete',[App\Http\Controllers\RegistrationController::class, 'userdelete'])->name('delete.user');
 
 //出品リストへ
 Route::get('/purchaselist', [App\Http\Controllers\DisplayController::class,'purchaselist'])->name('purchase.list');

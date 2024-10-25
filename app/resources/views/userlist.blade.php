@@ -49,7 +49,7 @@
             <div class="text-center my-5">
             <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
        
-                             <a class="btn btn-outline-dark mt-auto" href="">利用停止</a>
+                          <button type="submit" class="btn btn-primary">利用停止</button>
                              </div>
                            
             </div>

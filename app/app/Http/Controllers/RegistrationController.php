@@ -255,7 +255,7 @@ public function list(int $id) {
      //ユーザ利用停止
      //論理削除
   public function userdelete(int $id){
-  
+
     $user = User::findOrFail($id);
      $user->del_flg = 1;
      $user->save();
