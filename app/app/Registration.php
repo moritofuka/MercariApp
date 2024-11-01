@@ -20,6 +20,9 @@ class Registration extends Model
         return $this->belongsTo('App\User', 'user_id', 'id');
     }
  
+    public function purchase() {
+      return $this->belongsTo('App\Purchase','user_id','id');
+}
 
 
 }

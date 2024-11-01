@@ -55,6 +55,8 @@
            
         </header>
         <!-- Section-->
+
+    
         <div>
   <form action="{{ route('main.index') }}" method="GET">
   @csrf
@@ -89,9 +91,12 @@
                     <div class="col mb-5">
                         <div class="card h-100">
                         <table class='table'>
+
                         @foreach($registrations as $registration)
                         @if($registration['post_id'] == 1)
                         @if($registration['buy_flg'] == 0)
+                      
+                      
                             <!-- Product image-->
                           
                             <thead>
@@ -181,9 +186,16 @@
                             <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
                                 <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="{{ route('create.purchases',['id' => $registration['id']]) }}">購入</a></div>
                             </div>
+
+              
                             @endif
                             @endif
+                      
                             @endforeach
+
+
+
+                         
                             </table>
                             <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
 

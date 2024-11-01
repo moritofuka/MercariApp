@@ -15,7 +15,7 @@ return [
     |            "postmark", "log", "array"
     |
     */
-
+      //'driver' => env('MAIL_MAILER', 'smtp'),
     'driver' => env('MAIL_DRIVER', 'smtp'),
 
     /*

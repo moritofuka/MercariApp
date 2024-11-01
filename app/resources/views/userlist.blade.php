@@ -54,6 +54,19 @@
                            
             </div>
             </form>
+            <form action="{{ route('cancel.user', ['id' => $user['id']]) }}" method="post">
+            @csrf
+            <div class="text-center my-5">
+            <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
+       
+                          <button type="submit" class="btn btn-primary">利用停止解除</button>
+                             </div>
+                           
+            </div>
+            </form>
+            
+
+
             @endforeach
 
 

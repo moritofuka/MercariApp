@@ -257,9 +257,22 @@ public function list(int $id) {
   public function userdelete(int $id){
 
     $user = User::findOrFail($id);
-     $user->del_flg = 1;
-     $user->save();
+     //$user->del_flg = 1;
+     $user->delete();
 
+
+   
+     return redirect('/');
+     
+ }
+
+ public function userdeletecancel(int $id){
+
+   // $user = User::findOrFail($id);
+   //  $user->del_flg = 0;
+   //  $user->save();
+
+     User::onlyTrashed()->whereNotNull('id')->restore();
 
    
      return redirect('/');

@@ -19,6 +19,8 @@ use App\Http\Controllers\RegistrationController;
 //});
 Auth::routes();
 
+Auth::routes(['verify' => true]);
+
 Route::group(['middleware' => ['auth', 'can:user-higher']], function () {
 
 Route::get('/', [App\Http\Controllers\DisplayController::class,'index'])->name('main.index');
@@ -60,6 +62,8 @@ Route::get('/like_form', [App\Http\Controllers\DisplayController::class, 'likeFr
 //フォロー一覧
 Route::get('/follow_form', [App\Http\Controllers\DisplayController::class, 'followFrom'])->name('follow.form');
 
+//売上履歴
+Route::get('/sales_form', [App\Http\Controllers\DisplayController::class, 'salesFrom'])->name('sales.form');
 
 
 
@@ -103,6 +107,8 @@ Route::group(['middleware' => ['auth', 'can:admin-higher']], function () {
 
 //ユーザ利用停止
 Route::post('/delete_other_user/{id}/delete',[App\Http\Controllers\RegistrationController::class, 'userdelete'])->name('delete.user');
+//ユーザ利用停止キャンセル
+Route::post('/delete_cancel_user/{id}/delete',[App\Http\Controllers\RegistrationController::class, 'userdeletecancel'])->name('cancel.user');
 
 //出品リストへ
 Route::get('/purchaselist', [App\Http\Controllers\DisplayController::class,'purchaselist'])->name('purchase.list');
@@ -117,19 +123,6 @@ Route::post('/nodelete_list/{id}/nodelete',[App\Http\Controllers\RegistrationCon
 
 
 
-
-//Route::prefix('reset')->group(function () {
-  // パスワード再設定用のメール送信フォーム
- // Route::get('/', [App\Http\Controllers\UsersController::class, 'requestResetPassword'])->name('reset.form');
-  // メール送信処理
- // Route::post('/send', 'UsersController@sendResetPasswordMail')->name('reset.send');
-  // メール送信完了
- // Route::get('/send/complete', 'UsersController@sendCompleteResetPasswordMail')->name('reset.send.complete');
-  // パスワード再設定
-//  Route::get('/password/edit', 'UsersController@resetPassword')->name('reset.password.edit');
-  // パスワード更新
-//  Route::post('/password/update', 'UsersController@updatePassword')->name('reset.password.update');
-//});
 
 
 

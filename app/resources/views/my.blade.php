@@ -50,7 +50,7 @@
                         <li class="nav-item"><a class="nav-link" href="{{ route('like.form') }}">いいね一覧へ</a></li>
                         <li class="nav-item"><a class="nav-link" href="{{ route('purchase.form') }}">購入履歴</a></li>
                         <li class="nav-item"><a class="nav-link" href="{{ route('follow.form') }}">フォロー一覧</a></li>
-                        <li class="nav-item"><a class="nav-link" href="#!">売上履歴</a></li>
+                        <li class="nav-item"><a class="nav-link" href="{{ route('sales.form') }}">売上履歴</a></li>
                     </ul>
                     </div>
                 </div>

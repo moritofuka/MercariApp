@@ -192,7 +192,7 @@ public function admin(Request $request) {
 
     $user = new User;
     $alluser = $user->all()->toArray();
-    $image = User::orderBy('created_at', 'desc')->paginate(5);
+    $image = User::withTrashed()->orderBy('created_at', 'desc')->paginate(5);
 
 
     return view('userlist',[
@@ -218,7 +218,20 @@ public function admin(Request $request) {
 
     }
 
- 
+
+    //売上履歴
+    
+
+    public function salesFrom() {
+
+        $sales = Auth::user()->purchase()->with('registration')->get();
+
+       
+    
+        return view('sales',[
+            'purchases' => $sales,
+        ]);
+    }
 
  
 
